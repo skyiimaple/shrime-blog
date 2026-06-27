@@ -64,8 +64,8 @@ git push origin main
 
 | 变量 | 说明 |
 |------|------|
-| `PAYLOAD_SECRET` | 32+ 位随机串（勿用本地 dev 密钥） |
-| `DATABASE_URI` | Neon 连接串 |
+| `PAYLOAD_SECRET` | 32+ 位随机串（**必须手动添加**，Neon 集成不会自动生成） |
+| `DATABASE_URI` | Neon 连接串；若已接 Neon 集成，可用自带的 `POSTGRES_URL` |
 | `NEXT_PUBLIC_SITE_URL` | `https://xxx.vercel.app`（无末尾 `/`） |
 | `BLOB_READ_WRITE_TOKEN` | 阶段 4 创建 Blob 后自动注入 |
 

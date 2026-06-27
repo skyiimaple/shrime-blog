@@ -12,11 +12,14 @@ import { Media } from './collections/Media'
 import { Posts } from './collections/Posts'
 import { Tags } from './collections/Tags'
 import { Users } from './collections/Users'
+import { hasPostgresUri, resolvePostgresUri } from './lib/database-uri'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-const databaseUri = process.env.DATABASE_URI || `file:${path.resolve(dirname, '../data/shrimp-blog.db')}`
+const postgresUri = resolvePostgresUri()
+const databaseUri =
+  postgresUri || `file:${path.resolve(dirname, '../data/shrimp-blog.db')}`
 const usePostgres = databaseUri.startsWith('postgres')
 const useBlobStorage = Boolean(process.env.BLOB_READ_WRITE_TOKEN)
 
@@ -29,7 +32,7 @@ if (process.env.VERCEL) {
   }
   if (!usePostgres) {
     throw new Error(
-      'Vercel 未配置 DATABASE_URI：请填入 Neon PostgreSQL 连接串（建议带 -pooler 主机名）',
+      'Vercel 未配置数据库：添加 DATABASE_URI，或使用 Neon 集成自带的 POSTGRES_URL',
     )
   }
 }
