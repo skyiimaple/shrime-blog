@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server'
-import { hasPostgresUri, resolvePostgresUri } from '@/lib/database-uri'
+import { hasPostgresUri, postgresHost, resolvePayloadDatabaseUri, resolvePostgresUri } from '@/lib/database-uri'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
   const secret = process.env.PAYLOAD_SECRET?.trim() ?? ''
   const databaseUri = resolvePostgresUri() ?? ''
+  const payloadDatabaseUri = resolvePayloadDatabaseUri() ?? databaseUri
 
   const checks: Record<string, boolean | string> = {
     PAYLOAD_SECRET: secret.length >= 32,
@@ -13,6 +14,7 @@ export async function GET() {
     NEXT_PUBLIC_SITE_URL: Boolean(process.env.NEXT_PUBLIC_SITE_URL?.trim()),
     BLOB_READ_WRITE_TOKEN: Boolean(process.env.BLOB_READ_WRITE_TOKEN?.trim()),
     VERCEL: Boolean(process.env.VERCEL),
+    database_host: payloadDatabaseUri ? postgresHost(payloadDatabaseUri) : 'missing',
   }
 
   if (!checks.PAYLOAD_SECRET) {
@@ -34,7 +36,11 @@ export async function GET() {
       await payload.find({ collection: 'users', limit: 1 })
       dbOk = true
     } catch (error) {
-      dbError = error instanceof Error ? error.message : String(error)
+      const err = error as Error & { cause?: unknown }
+      dbError =
+        err.cause instanceof Error
+          ? `${err.message} | ${err.cause.message}`
+          : err.message
     }
   }
 

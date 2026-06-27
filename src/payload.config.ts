@@ -11,12 +11,12 @@ import { Media } from './collections/Media'
 import { Posts } from './collections/Posts'
 import { Tags } from './collections/Tags'
 import { Users } from './collections/Users'
-import { resolvePostgresUri } from './lib/database-uri'
+import { resolvePayloadDatabaseUri } from './lib/database-uri'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-const databaseUri = resolvePostgresUri()
+const databaseUri = resolvePayloadDatabaseUri()
 const useBlobStorage = Boolean(process.env.BLOB_READ_WRITE_TOKEN)
 
 if (!databaseUri) {
@@ -36,9 +36,9 @@ if (process.env.VERCEL) {
 
 const postgresPool = {
   connectionString: databaseUri,
-  max: process.env.VERCEL ? 10 : undefined,
-  idleTimeoutMillis: process.env.VERCEL ? 5000 : undefined,
-  connectionTimeoutMillis: process.env.VERCEL ? 15000 : undefined,
+  max: process.env.VERCEL ? 1 : undefined,
+  idleTimeoutMillis: process.env.VERCEL ? 10000 : undefined,
+  connectionTimeoutMillis: process.env.VERCEL ? 30000 : undefined,
 }
 
 export default buildConfig({
