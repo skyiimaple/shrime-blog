@@ -9,7 +9,8 @@
     "lint": "eslint",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
-    "seed": "node -e \"fetch('http://localhost:3000/api/seed',{method:'POST'}).then(r=>r.json()).then(console.log).catch(console.error)\""
+    "seed": "node -e \"fetch('http://localhost:3000/api/seed',{method:'POST'}).then(r=>r.json()).then(console.log).catch(console.error)\"",
+    "deploy:verify": "node scripts/deploy/verify-env.mjs"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.85.1",

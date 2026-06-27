@@ -116,15 +116,16 @@ npm run generate:types      # 生成 Payload TypeScript 类型
 npm run generate:importmap  # 生成 Payload import map
 ```
 
-## 部署建议
+## 部署
 
-| 服务 | 推荐 |
-|------|------|
-| 前端 | Vercel |
-| 数据库 | Neon |
-| 搜索 | Meilisearch Cloud 或 Railway |
+完整任务清单见 **[docs/DEPLOY.md](docs/DEPLOY.md)**。
 
-部署时设置与 `.env.example` 相同的环境变量。
+```bash
+npm run deploy:verify   # 部署前环境变量自检
+npm run build           # 本地构建预检
+```
+
+Vercel + Neon + Blob 步骤见文档；Cursor Agent 可引用 Skill：`vercel-neon-deploy`。
 
 ## 后续可扩展
 
