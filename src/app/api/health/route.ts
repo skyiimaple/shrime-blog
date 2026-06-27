@@ -1,20 +1,29 @@
 import { NextResponse } from 'next/server'
-import { hasPostgresUri, postgresHost, resolvePayloadDatabaseUri, resolvePostgresUri } from '@/lib/database-uri'
+import {
+  hasConflictingPostgresHosts,
+  hasPostgresUri,
+  listPostgresEnvHosts,
+  postgresHost,
+  resolvePayloadDatabaseUri,
+  resolvePostgresUriWithSource,
+} from '@/lib/database-uri'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
   const secret = process.env.PAYLOAD_SECRET?.trim() ?? ''
-  const databaseUri = resolvePostgresUri() ?? ''
-  const payloadDatabaseUri = resolvePayloadDatabaseUri() ?? databaseUri
+  const resolved = resolvePostgresUriWithSource()
+  const payloadDatabaseUri = resolvePayloadDatabaseUri()
 
-  const checks: Record<string, boolean | string> = {
+  const checks: Record<string, boolean | string | Record<string, string>> = {
     PAYLOAD_SECRET: secret.length >= 32,
     database_postgres: hasPostgresUri(),
     NEXT_PUBLIC_SITE_URL: Boolean(process.env.NEXT_PUBLIC_SITE_URL?.trim()),
     BLOB_READ_WRITE_TOKEN: Boolean(process.env.BLOB_READ_WRITE_TOKEN?.trim()),
     VERCEL: Boolean(process.env.VERCEL),
+    database_source: resolved?.source ?? 'missing',
     database_host: payloadDatabaseUri ? postgresHost(payloadDatabaseUri) : 'missing',
+    database_env_hosts: listPostgresEnvHosts(),
   }
 
   if (!checks.PAYLOAD_SECRET) {
@@ -24,6 +33,11 @@ export async function GET() {
   if (!checks.database_postgres) {
     checks.database_hint =
       '需要 DATABASE_URI 或 Neon 集成的 POSTGRES_URL / DATABASE_URL'
+  }
+
+  if (hasConflictingPostgresHosts()) {
+    checks.database_hint =
+      '多个数据库环境变量指向不同 Neon 主机；代码优先使用 DATABASE_URI。Vercel 请把含数据的连接串写入 DATABASE_URI'
   }
 
   let dbOk = false

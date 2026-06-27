@@ -65,7 +65,7 @@ git push origin main
 | 变量 | 说明 |
 |------|------|
 | `PAYLOAD_SECRET` | 32+ 位随机串（**必须手动添加**，Neon 集成不会自动生成） |
-| `DATABASE_URI` | Neon 连接串；若已接 Neon 集成，可用自带的 `POSTGRES_URL` |
+| `DATABASE_URI` | **含数据的** Neon 连接串（优先级最高）；Vercel 集成 Neon 会另建空库，勿只用 `POSTGRES_URL` |
 | `NEXT_PUBLIC_SITE_URL` | `https://xxx.vercel.app`（无末尾 `/`） |
 | `BLOB_READ_WRITE_TOKEN` | 阶段 4 创建 Blob 后自动注入 |
 
@@ -117,7 +117,8 @@ git push origin main
 | 构建失败 | Vercel Build Log；本地 `npm run build` |
 | `ERR_REQUIRE_ASYNC_MODULE` | 已修复：build 不再跑 `generate:importmap`，用已提交的 `importMap.js` |
 | `/admin` 500 | `PAYLOAD_SECRET`、`DATABASE_URI` 是否配在 Production |
-| 全站 500 | 打开 `/api/health` 看缺哪项；Neon 建议用 **pooler** 连接串 |
+| 全站 500 / admin 登录失败 | 打开 `/api/health`；`database_env_hosts` 若多个主机不一致，在 Vercel 设置 `DATABASE_URI` 为本地同一 Neon 库 |
+| 数据库 timeout | Vercel 已自动用 Neon 直连；确认 `DATABASE_URI` 与本地一致（非集成自动创建的空库） |
 | 图片上传失败 | Blob 是否创建并连接；`BLOB_READ_WRITE_TOKEN` |
 | 评论失败 | 是否最新代码（`overrideAccess` 修复） |
 | RSS/链接域名错 | `NEXT_PUBLIC_SITE_URL` + Redeploy |
