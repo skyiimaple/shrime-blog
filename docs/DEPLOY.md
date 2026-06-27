@@ -117,6 +117,7 @@ git push origin main
 | 构建失败 | Vercel Build Log；本地 `npm run build` |
 | `ERR_REQUIRE_ASYNC_MODULE` | 已修复：build 不再跑 `generate:importmap`，用已提交的 `importMap.js` |
 | `/admin` 500 | `PAYLOAD_SECRET`、`DATABASE_URI` 是否配在 Production |
+| 全站 500 | 打开 `/api/health` 看缺哪项；Neon 建议用 **pooler** 连接串 |
 | 图片上传失败 | Blob 是否创建并连接；`BLOB_READ_WRITE_TOKEN` |
 | 评论失败 | 是否最新代码（`overrideAccess` 修复） |
 | RSS/链接域名错 | `NEXT_PUBLIC_SITE_URL` + Redeploy |

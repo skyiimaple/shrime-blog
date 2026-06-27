@@ -20,11 +20,30 @@ const databaseUri = process.env.DATABASE_URI || `file:${path.resolve(dirname, '.
 const usePostgres = databaseUri.startsWith('postgres')
 const useBlobStorage = Boolean(process.env.BLOB_READ_WRITE_TOKEN)
 
+if (process.env.VERCEL) {
+  const secret = process.env.PAYLOAD_SECRET?.trim() ?? ''
+  if (secret.length < 32) {
+    throw new Error(
+      'Vercel 未配置 PAYLOAD_SECRET：Settings → Environment Variables → Production，至少 32 位随机串',
+    )
+  }
+  if (!usePostgres) {
+    throw new Error(
+      'Vercel 未配置 DATABASE_URI：请填入 Neon PostgreSQL 连接串（建议带 -pooler 主机名）',
+    )
+  }
+}
+
+const postgresPool = {
+  connectionString: databaseUri,
+  max: process.env.VERCEL ? 10 : undefined,
+  idleTimeoutMillis: process.env.VERCEL ? 5000 : undefined,
+  connectionTimeoutMillis: process.env.VERCEL ? 15000 : undefined,
+}
+
 const db = usePostgres
   ? postgresAdapter({
-      pool: {
-        connectionString: databaseUri,
-      },
+      pool: postgresPool,
     })
   : sqliteAdapter({
       client: {
