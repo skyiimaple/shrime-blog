@@ -11,7 +11,7 @@ npm install
 npm run build
 ```
 
-- [ ] 构建成功，无红色 Error
+- [ ] 构建成功，无红色 Error（`npm run build` 仅跑 `next build`，不跑 `generate:importmap`）
 - [ ] `.env` 未提交（`git status` 中不出现 `.env`）
 
 可选环境自检：
@@ -115,6 +115,7 @@ git push origin main
 | 现象 | 检查 |
 |------|------|
 | 构建失败 | Vercel Build Log；本地 `npm run build` |
+| `ERR_REQUIRE_ASYNC_MODULE` | 已修复：build 不再跑 `generate:importmap`，用已提交的 `importMap.js` |
 | `/admin` 500 | `PAYLOAD_SECRET`、`DATABASE_URI` 是否配在 Production |
 | 图片上传失败 | Blob 是否创建并连接；`BLOB_READ_WRITE_TOKEN` |
 | 评论失败 | 是否最新代码（`overrideAccess` 修复） |
