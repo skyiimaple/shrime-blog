@@ -29,7 +29,7 @@ if (process.env.VERCEL) {
   const secret = process.env.PAYLOAD_SECRET?.trim() ?? ''
   if (secret.length < 32) {
     throw new Error(
-      'Vercel 未配置 PAYLOAD_SECRET：Settings → Environment Variables → Production，至少 32 位随机串',
+      'Vercel 未配置 PAYLOAD_SECRET：Settings → Environment Variables → 勾选 Production → 添加至少 32 位随机串 → Redeploy',
     )
   }
 }
