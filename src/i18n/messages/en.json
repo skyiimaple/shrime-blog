@@ -1,0 +1,111 @@
+{
+  "site": {
+    "title": "Maple's Blog",
+    "description": "A developer blog about life and technology",
+    "tagline": "Life stories and technical exploration"
+  },
+  "nav": {
+    "home": "Home",
+    "blog": "Blog",
+    "tags": "Tags",
+    "about": "About",
+    "search": "Search",
+    "admin": "Admin"
+  },
+  "theme": {
+    "switchLight": "Switch to light mode",
+    "switchDark": "Switch to dark mode"
+  },
+  "common": {
+    "backToBlog": "Back to blog",
+    "backToTags": "Back to tags"
+  },
+  "home": {
+    "latestPosts": "Latest Posts",
+    "techPosts": "Tech",
+    "lifePosts": "Life",
+    "viewAll": "View all",
+    "empty": "No posts yet. Publish your first post in the admin panel.",
+    "profileBio": "Life stories and technical exploration",
+    "profileSite": "shrimp-blog",
+    "profileStatus": "Thanks for visiting",
+    "profileMotto": "A salty shrimp writing about life and code — welcome!",
+    "aboutBtn": "About",
+    "mySites": "My Sites",
+    "blogSite": "Blog",
+    "tagsSite": "Tags",
+    "socialGithub": "GitHub",
+    "socialEmail": "Email",
+    "welcomeTitle": "Welcome to Maple's Blog",
+    "welcomeDesc": "A cozy corner for life and tech writing.",
+    "popularPosts": "Recent Posts",
+    "tagCloud": "Tags",
+    "viewAllTags": "All tags"
+  },
+  "blog": {
+    "title": "Blog",
+    "all": "All",
+    "tech": "Tech",
+    "life": "Life",
+    "readMore": "Read more",
+    "publishedAt": "Published on",
+    "noPosts": "No posts found"
+  },
+  "tags": {
+    "title": "Tags",
+    "posts": "posts"
+  },
+  "about": {
+    "title": "About Shrimp",
+    "intelTitle": "Public Intel",
+    "blogTitle": "Me & This Blog",
+    "stackTitle": "Stack",
+    "contactTitle": "Find Me",
+    "facts": [
+      { "label": "M E", "value": "A developer curious about both life and code" },
+      { "label": "Goal", "value": "Write ideas down and live with clarity" },
+      { "label": "Trait", "value": "Interest-driven — hard to stop once started" },
+      { "label": "Hobbies", "value": "Coding, city walks, cooking, casual photography" },
+      { "label": "Personality", "value": "Introverted, homebody, occasionally chatty" }
+    ],
+    "paragraphs": [
+      "Maple's Blog is where I keep life fragments and technical notes. Tech posts cover stack choices, dev pitfalls, and small tips. Life posts might be weekend walks, kitchen experiments, or moments worth keeping.",
+      "I built this site because notes were scattered across apps and short-form content wasn't enough. I wanted a place to write slowly and revise freely — like tidying a room for my thoughts.",
+      "If you enjoy unhurried blogs like this, feel free to visit often. Leave a comment on any post — I'll reply when I can."
+    ],
+    "stackList": ["Next.js", "Payload CMS", "SQLite / PostgreSQL", "Meilisearch", "Tailwind CSS"],
+    "contacts": [
+      { "label": "GitHub", "href": "https://github.com", "external": true },
+      { "label": "RSS", "href": "/rss.xml", "external": false }
+    ]
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Search titles and excerpts...",
+    "noResults": "No results found",
+    "hint": "Type a keyword to search",
+    "meilisearchOff": "Meilisearch is not configured. Search is unavailable."
+  },
+  "comments": {
+    "title": "Comments",
+    "empty": "No comments yet. Be the first!",
+    "name": "Name",
+    "email": "Email",
+    "content": "Comment",
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "success": "Comment submitted. It will appear after approval.",
+    "error": "Failed to submit. Please try again.",
+    "reply": "Reply",
+    "pending": "Pending"
+  },
+  "footer": {
+    "rss": "RSS",
+    "github": "GitHub",
+    "copyright": "Maple's Blog"
+  },
+  "category": {
+    "tech": "Tech",
+    "life": "Life"
+  }
+}

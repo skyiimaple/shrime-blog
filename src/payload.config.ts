@@ -1,0 +1,68 @@
+import { postgresAdapter } from '@payloadcms/db-postgres'
+import { sqliteAdapter } from '@payloadcms/db-sqlite'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import path from 'path'
+import { buildConfig } from 'payload'
+import { fileURLToPath } from 'url'
+import sharp from 'sharp'
+
+import { Comments } from './collections/Comments'
+import { Media } from './collections/Media'
+import { Posts } from './collections/Posts'
+import { Tags } from './collections/Tags'
+import { Users } from './collections/Users'
+
+const filename = fileURLToPath(import.meta.url)
+const dirname = path.dirname(filename)
+
+const databaseUri = process.env.DATABASE_URI || `file:${path.resolve(dirname, '../data/shrimp-blog.db')}`
+const usePostgres = databaseUri.startsWith('postgres')
+const useBlobStorage = Boolean(process.env.BLOB_READ_WRITE_TOKEN)
+
+const db = usePostgres
+  ? postgresAdapter({
+      pool: {
+        connectionString: databaseUri,
+      },
+    })
+  : sqliteAdapter({
+      client: {
+        url: databaseUri,
+      },
+    })
+
+export default buildConfig({
+  admin: {
+    user: Users.slug,
+    importMap: {
+      baseDir: path.resolve(dirname),
+    },
+  },
+  collections: [Users, Media, Tags, Posts, Comments],
+  editor: lexicalEditor(),
+  secret: process.env.PAYLOAD_SECRET || '',
+  typescript: {
+    outputFile: path.resolve(dirname, 'payload-types.ts'),
+  },
+  db,
+  sharp,
+  plugins: [
+    vercelBlobStorage({
+      enabled: useBlobStorage,
+      clientUploads: true,
+      collections: {
+        media: true,
+      },
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    }),
+  ],
+  localization: {
+    locales: [
+      { label: '中文', code: 'zh' },
+      { label: 'English', code: 'en' },
+    ],
+    defaultLocale: 'zh',
+    fallback: true,
+  },
+})

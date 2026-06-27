@@ -1,0 +1,111 @@
+{
+  "site": {
+    "title": "Maple's Blog",
+    "description": "生活与技术的开发者博客",
+    "tagline": "记录生活片段与技术探索"
+  },
+  "nav": {
+    "home": "首页",
+    "blog": "博客",
+    "tags": "标签",
+    "about": "关于",
+    "search": "搜索",
+    "admin": "后台"
+  },
+  "theme": {
+    "switchLight": "切换到明亮模式",
+    "switchDark": "切换到深色模式"
+  },
+  "common": {
+    "backToBlog": "返回博客",
+    "backToTags": "返回标签"
+  },
+  "home": {
+    "latestPosts": "最新文章",
+    "techPosts": "技术",
+    "lifePosts": "生活",
+    "viewAll": "查看全部",
+    "empty": "还没有文章，去后台发布第一篇吧。",
+    "profileBio": "记录生活片段与技术探索",
+    "profileSite": "shrimp-blog",
+    "profileStatus": "欢迎常来看看",
+    "profileMotto": "一条记录生活与技术的咸鱼，欢迎投喂～",
+    "aboutBtn": "关于我",
+    "mySites": "我的站点",
+    "blogSite": "博客",
+    "tagsSite": "标签",
+    "socialGithub": "GitHub",
+    "socialEmail": "邮件",
+    "welcomeTitle": "欢迎来到 Maple's Blog",
+    "welcomeDesc": "生活与技术的个人小站，欢迎常来看看。",
+    "popularPosts": "最新文章",
+    "tagCloud": "标签云",
+    "viewAllTags": "全部标签"
+  },
+  "blog": {
+    "title": "博客",
+    "all": "全部",
+    "tech": "技术",
+    "life": "生活",
+    "readMore": "阅读全文",
+    "publishedAt": "发布于",
+    "noPosts": "暂无文章"
+  },
+  "tags": {
+    "title": "标签",
+    "posts": "篇文章"
+  },
+  "about": {
+    "title": "关于虾米",
+    "intelTitle": "目前可以公开的情报",
+    "blogTitle": "我 & 博客",
+    "stackTitle": "技术栈",
+    "contactTitle": "找到我",
+    "facts": [
+      { "label": "M E", "value": "一个对生活和代码都充满好奇的开发者" },
+      { "label": "目标", "value": "把想法写下来，把日子过清楚" },
+      { "label": "特征", "value": "兴趣驱动，上手了就停不下来" },
+      { "label": "爱好", "value": "写代码、逛城市、下厨、随手拍照" },
+      { "label": "性格", "value": "慢热，偏宅，偶尔话多" }
+    ],
+    "paragraphs": [
+      "Maple's Blog 是我用来记录生活片段和技术思考的地方。技术文章会写框架选型、开发踩坑和小技巧；生活随笔可能是周末散步、厨房实验，或者一些无关紧要但想留住的瞬间。",
+      "建站初衷很简单：不想把笔记散落在各个 App 里，也不想只发短内容。希望有一个属于自己的页面，可以慢慢写、慢慢改，像整理房间一样整理思绪。",
+      "如果你也喜欢这种不赶时间的博客，欢迎常来看看。有想法可以在文章下方留言，我会尽量回复。"
+    ],
+    "stackList": ["Next.js", "Payload CMS", "SQLite / PostgreSQL", "Meilisearch", "Tailwind CSS"],
+    "contacts": [
+      { "label": "GitHub", "href": "https://github.com", "external": true },
+      { "label": "RSS", "href": "/rss.xml", "external": false }
+    ]
+  },
+  "search": {
+    "title": "搜索",
+    "placeholder": "搜索文章标题、摘要...",
+    "noResults": "没有找到相关文章",
+    "hint": "输入关键词开始搜索",
+    "meilisearchOff": "Meilisearch 未配置，搜索功能暂不可用。"
+  },
+  "comments": {
+    "title": "评论",
+    "empty": "暂无评论，来抢沙发吧。",
+    "name": "昵称",
+    "email": "邮箱",
+    "content": "评论内容",
+    "submit": "提交评论",
+    "submitting": "提交中...",
+    "success": "评论已提交，审核通过后会显示。",
+    "error": "提交失败，请稍后重试。",
+    "reply": "回复",
+    "pending": "待审核"
+  },
+  "footer": {
+    "rss": "RSS",
+    "github": "GitHub",
+    "copyright": "Maple's Blog"
+  },
+  "category": {
+    "tech": "技术",
+    "life": "生活"
+  }
+}
