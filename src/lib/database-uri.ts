@@ -33,7 +33,7 @@ export function listPostgresEnvHosts(): Partial<Record<PostgresEnvKey, string>> 
   return hosts
 }
 
-/** Neon Pooler 在 Vercel Serverless + Drizzle 下可能失败，改用直连主机名 */
+/** 去掉 Neon Pooler 后缀，改用直连主机名（仅 DATABASE_USE_DIRECT=true 时启用） */
 export function toDirectNeonUri(uri: string): string {
   if (uri.includes('-pooler.')) {
     return uri.replace('-pooler.', '.')
@@ -44,7 +44,8 @@ export function toDirectNeonUri(uri: string): string {
 export function resolvePayloadDatabaseUri(): string | undefined {
   const resolved = resolvePostgresUriWithSource()
   if (!resolved) return undefined
-  if (process.env.VERCEL) {
+  // Vercel Serverless 应保留 Pooler 连接串；直连易 timeout
+  if (process.env.VERCEL && process.env.DATABASE_USE_DIRECT === 'true') {
     return toDirectNeonUri(resolved.uri)
   }
   return resolved.uri

@@ -118,7 +118,7 @@ git push origin main
 | `ERR_REQUIRE_ASYNC_MODULE` | 已修复：build 不再跑 `generate:importmap`，用已提交的 `importMap.js` |
 | `/admin` 500 | `PAYLOAD_SECRET`、`DATABASE_URI` 是否配在 Production |
 | 全站 500 / admin 登录失败 | 打开 `/api/health`；`database_env_hosts` 若多个主机不一致，在 Vercel 设置 `DATABASE_URI` 为本地同一 Neon 库 |
-| 数据库 timeout | Vercel 已自动用 Neon 直连；确认 `DATABASE_URI` 与本地一致（非集成自动创建的空库） |
+| 数据库 timeout | `DATABASE_URI` 用 Neon **Pooler** 连接串（含 `-pooler`）；勿设 `DATABASE_USE_DIRECT`；删除 Vercel Neon 集成多余的 `POSTGRES_*` |
 | 图片上传失败 | Blob 是否创建并连接；`BLOB_READ_WRITE_TOKEN` |
 | 评论失败 | 是否最新代码（`overrideAccess` 修复） |
 | RSS/链接域名错 | `NEXT_PUBLIC_SITE_URL` + Redeploy |

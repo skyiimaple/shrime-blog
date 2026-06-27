@@ -22,8 +22,9 @@ export async function GET() {
     BLOB_READ_WRITE_TOKEN: Boolean(process.env.BLOB_READ_WRITE_TOKEN?.trim()),
     VERCEL: Boolean(process.env.VERCEL),
     database_source: resolved?.source ?? 'missing',
-    database_host: payloadDatabaseUri ? postgresHost(payloadDatabaseUri) : 'missing',
     database_env_hosts: listPostgresEnvHosts(),
+    database_connect_host: payloadDatabaseUri ? postgresHost(payloadDatabaseUri) : 'missing',
+    database_uses_pooler: Boolean(payloadDatabaseUri?.includes('-pooler.')),
   }
 
   if (!checks.PAYLOAD_SECRET) {
@@ -35,9 +36,16 @@ export async function GET() {
       '需要 DATABASE_URI 或 Neon 集成的 POSTGRES_URL / DATABASE_URL'
   }
 
-  if (hasConflictingPostgresHosts()) {
+  if (
+    resolved?.uri.includes('-pooler.') &&
+    payloadDatabaseUri &&
+    !payloadDatabaseUri.includes('-pooler.')
+  ) {
     checks.database_hint =
-      '多个数据库环境变量指向不同 Neon 主机；代码优先使用 DATABASE_URI。Vercel 请把含数据的连接串写入 DATABASE_URI'
+      'DATABASE_URI 含 pooler 但连接被转为直连（旧代码）；请 push 最新代码并 Redeploy'
+  } else if (hasConflictingPostgresHosts()) {
+    checks.database_hint =
+      'POSTGRES_URL/DATABASE_URL 与 DATABASE_URI 指向不同 Neon 库；请在 Vercel 删除 Neon 集成注入的 POSTGRES_* / DATABASE_URL，仅保留 DATABASE_URI'
   }
 
   let dbOk = false
