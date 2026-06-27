@@ -62,7 +62,7 @@ node scripts/deploy/verify-env.mjs
 
 可选：`MEILISEARCH_HOST`、`MEILISEARCH_API_KEY`
 
-Build Command 默认 `npm run build`（内含 `generate:importmap`）。
+构建使用已提交的 `importMap.js`（`npm run build`）。若改了 Payload 后台组件，本地再跑 `npm run generate:importmap`。
 
 ### 4. Vercel Blob
 
@@ -82,7 +82,7 @@ Storage → Create → **Blob** → Connect to Project。无 Blob 则后台 Medi
 
 | 现象 | 动作 |
 |------|------|
-| Build 失败 | 读 Vercel log；本地 `npm run build` |
+| Build 失败 `ERR_REQUIRE_ASYNC_MODULE` | 勿在 build 中跑 `generate:importmap`；用 `next build`，importMap 已提交 |
 | `/admin` 500 | 查 Production 的 `PAYLOAD_SECRET`、`DATABASE_URI` |
 | No files were uploaded | 创建 Blob；Paste URL 需图片直链非 `#pid=` |
 | 评论 500 | `api/comments` 需 `overrideAccess` + 数字 post ID |
