@@ -73,7 +73,7 @@
       "建站初衷很简单：不想把笔记散落在各个 App 里，也不想只发短内容。希望有一个属于自己的页面，可以慢慢写、慢慢改，像整理房间一样整理思绪。",
       "如果你也喜欢这种不赶时间的博客，欢迎常来看看。有想法可以在文章下方留言，我会尽量回复。"
     ],
-    "stackList": ["Next.js", "Payload CMS", "SQLite / PostgreSQL", "Meilisearch", "Tailwind CSS"],
+    "stackList": ["Next.js", "Payload CMS", "PostgreSQL (Neon)", "Meilisearch", "Tailwind CSS"],
     "contacts": [
       { "label": "GitHub", "href": "https://github.com", "external": true },
       { "label": "RSS", "href": "/rss.xml", "external": false }

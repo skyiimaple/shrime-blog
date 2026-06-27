@@ -41,8 +41,7 @@ node scripts/deploy/verify-env.mjs
 
 ### 1. Neon
 
-- 连接串格式：`postgresql://...@ep-xxx.neon.tech/neondb?sslmode=require`
-- **生产禁止 SQLite**（`file:` URI）
+- 本地与生产均使用 **Neon PostgreSQL**（`DATABASE_URI` 或 Vercel 集成的 `POSTGRES_URL`）
 - 密码泄露后：Neon 重置密码 → 更新 Vercel 与本地 `.env`
 
 ### 2. GitHub
@@ -89,9 +88,9 @@ Storage → Create → **Blob** → Connect to Project。无 Blob 则后台 Medi
 | 413 上传 | 确认 Blob + `clientUploads` |
 | RSS 域名错 | `NEXT_PUBLIC_SITE_URL` + Redeploy |
 
-## 数据迁移
+## 数据
 
-Neon 新库为空。本地 SQLite 不自动迁移，需在 `/admin` 重新发布或自行导入。
+本地与生产共用 Neon PostgreSQL（`DATABASE_URI`）。新库可在 `/admin` 创建管理员后发布内容，或开发环境调用 `POST /api/seed` 填充示例数据。
 
 生产 `/api/seed` 已禁用。
 

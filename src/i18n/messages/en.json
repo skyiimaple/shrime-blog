@@ -73,7 +73,7 @@
       "I built this site because notes were scattered across apps and short-form content wasn't enough. I wanted a place to write slowly and revise freely — like tidying a room for my thoughts.",
       "If you enjoy unhurried blogs like this, feel free to visit often. Leave a comment on any post — I'll reply when I can."
     ],
-    "stackList": ["Next.js", "Payload CMS", "SQLite / PostgreSQL", "Meilisearch", "Tailwind CSS"],
+    "stackList": ["Next.js", "Payload CMS", "PostgreSQL (Neon)", "Meilisearch", "Tailwind CSS"],
     "contacts": [
       { "label": "GitHub", "href": "https://github.com", "external": true },
       { "label": "RSS", "href": "/rss.xml", "external": false }

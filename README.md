@@ -41,21 +41,13 @@ npm install
 
 ```env
 PAYLOAD_SECRET=your-secret-key-at-least-32-characters-long
-DATABASE_URI=postgresql://postgres:postgres@localhost:5432/shrimp_blog
+DATABASE_URI=postgresql://...@ep-xxx.neon.tech/neondb?sslmode=require
 MEILISEARCH_HOST=http://127.0.0.1:7700
 MEILISEARCH_API_KEY=dev-master-key
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ```
 
-### 4. 启动 PostgreSQL
-
-本地 Docker 示例：
-
-```bash
-docker run --name shrimp-postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=shrimp_blog -p 5432:5432 -d postgres:16
-```
-
-或使用 [Neon](https://neon.tech) 免费 PostgreSQL，把连接串填入 `DATABASE_URI`。
+或使用 [Neon](https://neon.tech) 免费 PostgreSQL（推荐，本地与生产共用同一库）。
 
 ### 5. 启动 Meilisearch（可选）
 

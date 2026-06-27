@@ -8,9 +8,19 @@ import { resolve } from 'path'
 
 config()
 
+const postgresUri =
+  [process.env.DATABASE_URI, process.env.POSTGRES_URL, process.env.DATABASE_URL]
+    .map((v) => v?.trim())
+    .find((v) => v?.startsWith('postgres'))
+
 const required = [
   { key: 'PAYLOAD_SECRET', minLength: 32, hint: '至少 32 位随机字符串' },
-  { key: 'DATABASE_URI', pattern: /^postgres/, hint: 'Vercel 生产请用 PostgreSQL 连接串' },
+  {
+    key: 'DATABASE_URI',
+    pattern: /^postgres/,
+    hint: '请设置 DATABASE_URI 或 POSTGRES_URL（Neon PostgreSQL）',
+    resolved: postgresUri,
+  },
   { key: 'NEXT_PUBLIC_SITE_URL', pattern: /^https?:\/\//, hint: '站点 URL，如 https://xxx.vercel.app' },
 ]
 
@@ -24,8 +34,9 @@ if (!existsSync(resolve(process.cwd(), '.env'))) {
   console.warn('⚠ 未找到 .env（Vercel 上在控制台配置即可）\n')
 }
 
-for (const { key, minLength, pattern, hint } of required) {
-  const value = process.env[key]?.trim()
+for (const { key, minLength, pattern, hint, resolved } of required) {
+  const value =
+    key === 'DATABASE_URI' ? resolved : process.env[key]?.trim()
   if (!value) {
     console.error(`✗ ${key} 未设置 — ${hint}`)
     failed++
@@ -57,10 +68,10 @@ if (!process.env.BLOB_READ_WRITE_TOKEN) {
   console.warn('\n⚠ 未配置 BLOB_READ_WRITE_TOKEN：Vercel 上需在 Storage 创建 Blob')
 }
 
-if (process.env.DATABASE_URI?.startsWith('postgres')) {
+if (postgresUri) {
   try {
     const { Client } = await import('pg')
-    const client = new Client({ connectionString: process.env.DATABASE_URI })
+    const client = new Client({ connectionString: postgresUri })
     await client.connect()
     await client.query('SELECT 1')
     await client.end()

@@ -48,7 +48,7 @@ git push origin main
 ```
 
 - [ ] 代码已推送到 `main`
-- [ ] 未提交 `.env`、`data/`、`media/`
+- [ ] 未提交 `.env`、`media/`
 
 ---
 
